@@ -6,16 +6,16 @@ const mode =
 
 const config: Configuration = {
   mode,
-  devtool: "source-map",
+  devtool: mode === "development" ? "source-map" : false,
   target: "node",
   entry: path.resolve(__dirname, "src", "index.ts"),
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "[name].[contenthash].js",
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
     clean: true,
   },
   resolve: {
-    extensions: [".ts", ".js"],
+    extensions: [".ts", ".js", ".json"],
   },
   module: {
     rules: [
@@ -29,7 +29,7 @@ const config: Configuration = {
             },
           },
         ],
-        exclude: /node_modules/,
+        exclude: [/node_modules/, path.resolve(__dirname, "src", "tests")],
       },
     ],
   },

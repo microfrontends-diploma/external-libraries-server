@@ -1,16 +1,23 @@
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
-// import axios from "axios";
-// import path from "path";
-// import fs from "fs";
-// import { EXTERNALS_PATH, IMPORT_MAP_DEPLOYER_URL, PORT } from "./constants";
-// import { Request } from "express";
+import { container } from "tsyringe";
+import { ExternalsController } from "./controllers/externals/index";
+import { registerDI } from "./DI";
 
+const PORT = process.argv[2] || "5050";
+
+registerDI();
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-app.listen(5050, () => {
-  console.log(`External libraries server running on port 5050`);
+app.post(
+  "/update-externals",
+  container.resolve(ExternalsController).updateExternals("mf-externals")
+);
+
+app.listen(PORT, () => {
+  console.log(`External libraries server running on port ${PORT}`);
 });
