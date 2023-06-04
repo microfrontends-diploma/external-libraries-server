@@ -54,7 +54,7 @@ jobs:
       - name: run docker container and save id
         id: new-container-id
         run: |
-          FILE="$HOME /docker-containers-id/$FILE_NAME"
+          FILE="$HOME/docker-containers-id/$FILE_NAME"
           docker run --cidfile $FILE -d -p 5050:5050 $CONTAINER_TAG
           ID=`cat $FILE`
           echo "id=$ID" >> $GITHUB_OUTPUT
