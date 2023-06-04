@@ -71,4 +71,4 @@ dist
 .DS_Store
 
 # External libraries
-mf-externals
+microfrontend-externals

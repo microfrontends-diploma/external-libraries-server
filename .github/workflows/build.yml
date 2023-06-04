@@ -1,4 +1,4 @@
-name: local import-map-deployer build
+name: external dependency server build
 on:
   push:
     branches: ["dev"]
@@ -11,7 +11,7 @@ env:
 
 jobs:
   build:
-    name: IMD
+    name: EDS
     runs-on: [self-hosted, linux, X64]
     steps:
       - uses: actions/checkout@v3
