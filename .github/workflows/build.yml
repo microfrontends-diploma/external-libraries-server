@@ -52,19 +52,21 @@ jobs:
         run: docker build . -t $CONTAINER_TAG
 
       - name: run docker container and save id
+        id: new-container-id
         run: |
           FILE="$HOME /docker-containers-id/$FILE_NAME"
           docker run --cidfile $FILE -d -p 5050:5050 $CONTAINER_TAG
+          ID=`cat $FILE`
+          echo "id=$ID" >> $GITHUB_OUTPUT
 
-      # TODO: поправить проверку на существование папки
       - name: copying essential files to container
         run: |
           DIR="$HOME/docker-buffer/$CONTAINER_TAG"
           if [ -d "$DIR" ]; then
-            DIRECTORY_CHECK=`docker exec -it ${{steps.container-id.outputs.id}} sh -c "test -d /app && echo 1 || echo 0"`
+            DIRECTORY_CHECK=`docker exec -it ${{steps.new-container-id.outputs.id}} sh -c "test -d /app && echo 1 || echo 0"`
 
             if [ "$DIRECTORY_CHECK" -eq 1 ]; then
-              docker cp "$DIR/microfrontend-externals" ${{steps.container-id.outputs.id}}:/app/ 
+              docker cp "$DIR/microfrontend-externals" ${{steps.new-container-id.outputs.id}}:/app/ 
               rm -r $DIR
             fi
           fi
