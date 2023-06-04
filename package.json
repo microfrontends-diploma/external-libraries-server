@@ -1,13 +1,13 @@
 {
   "name": "external-libraries-server",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "private": false,
   "author": "Andy",
   "scripts": {
-    "start": "ts-node ./src",
-    "build": "env-cmd -e prod webpack"
+    "start:dev": "ts-node ./src",
+    "start:prod": "node ./dist",
+    "build": "webpack"
   },
   "dependencies": {
     "axios": "^1.3.4",
@@ -18,14 +18,16 @@
   },
   "devDependencies": {
     "@babel/core": "^7.21.3",
+    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/plugin-proposal-decorators": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
     "@babel/preset-typescript": "^7.21.0",
     "@types/express": "^4.17.17",
     "babel-loader": "^9.1.2",
-    "env-cmd": "^10.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.1.2",
-    "typescript": "^5.0.2",
+    "typescript": "^4.5",
     "webpack": "^5.76.2",
     "webpack-cli": "^5.0.1"
   }

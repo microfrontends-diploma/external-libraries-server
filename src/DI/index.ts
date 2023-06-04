@@ -1,5 +1,4 @@
 import { ImportMapService } from "src/service/importMap";
-
 import { container } from "tsyringe";
 
 export function registerDI() {

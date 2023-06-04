@@ -15,7 +15,9 @@ app.use(express.json());
 
 app.post(
   "/update-externals",
-  container.resolve(ExternalsController).updateExternals("mf-externals")
+  container
+    .resolve(ExternalsController)
+    .updateExternals("microfrontend-externals")
 );
 
 app.listen(PORT, () => {

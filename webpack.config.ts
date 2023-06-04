@@ -25,6 +25,14 @@ const config: Configuration = {
           {
             loader: "babel-loader",
             options: {
+              plugins: [
+                [
+                  "@babel/plugin-proposal-decorators",
+                  { decoratorsBeforeExport: true },
+                ],
+                "@babel/plugin-proposal-class-properties",
+                "babel-plugin-transform-typescript-metadata",
+              ],
               presets: ["@babel/preset-env", "@babel/preset-typescript"],
             },
           },

@@ -1,0 +1,27 @@
+{
+  "vsproj.enabled": true,
+  "vsproj.itemType": {
+    "*": "Content",
+    ".js": "Compile",
+    ".jsx": "Compile",
+    ".ts": "TypeScriptCompile",
+    ".tsx": "TypeScriptCompile"
+  },
+  "vsproj.excludeRegex": "node_modules",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescriptreact",
+    "typescript"
+  ],
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "todo-tree.filtering.excludeGlobs": [
+    "**/node_modules/*",
+    "**/node_modules/**/*"
+  ]
+}

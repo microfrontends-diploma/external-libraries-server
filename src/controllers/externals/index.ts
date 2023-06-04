@@ -3,7 +3,6 @@ import path from "path";
 import { RequestHandler } from "express";
 import { ImportMapServiceInterface } from "src/service/importMap/types";
 import { UpdateExternalsRequestBodyType } from "./types";
-import { ImportMapService } from "src/service/importMap";
 import { inject, injectable } from "tsyringe";
 
 // TODO: написать тесты
@@ -72,7 +71,6 @@ export class ExternalsController {
         const promises = externalsToDelete.map((external) =>
           this.importMapService.deleteImportMap(external, env)
         );
-        // TODO: обработать случай, когда что-то пошло не так
         try {
           await Promise.all(promises);
         } catch (e) {
@@ -92,7 +90,7 @@ export class ExternalsController {
             env
           )
         );
-        // TODO: обработать случай, когда что-то пошло не так
+
         try {
           await Promise.all(promises);
         } catch (e) {
@@ -113,8 +111,9 @@ export class ExternalsController {
         JSON.stringify(externalsToWrite)
       );
 
-      // TODO: каким-то образом понять, какой статус код надо поставить
-      res.status(200);
+      res.status(
+        !externalsToDelete.length && !externalsToAdd.length ? 304 : 200
+      );
       res.send();
     };
   }
