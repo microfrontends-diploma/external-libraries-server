@@ -63,7 +63,7 @@ jobs:
         run: |
           DIR="$HOME/docker-buffer/$CONTAINER_TAG"
           if [ -d "$DIR" ]; then
-            DIRECTORY_CHECK=`docker exec -it ${{steps.new-container-id.outputs.id}} sh -c "test -d /app && echo 1 || echo 0"`
+            DIRECTORY_CHECK=`docker exec -i ${{steps.new-container-id.outputs.id}} sh -c "test -d /app && echo 1 || echo 0"`
 
             if [ "$DIRECTORY_CHECK" -eq 1 ]; then
               docker cp "$DIR/microfrontend-externals" ${{steps.new-container-id.outputs.id}}:/app/ 
