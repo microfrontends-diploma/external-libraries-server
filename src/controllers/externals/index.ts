@@ -88,12 +88,17 @@ export class ExternalsController {
       }
 
       if (externalsToAdd.length) {
-        const promises = externalsToAdd.map((external) =>
+        const promises = externalsToAdd.map((external) => {
+          console.log(
+            "patching external",
+            `service: ${external.lib}, url: ${external.url}`
+          );
+
           this.importMapService.patchImportMap(
             { service: external.lib, url: external.url },
             env
-          )
-        );
+          );
+        });
 
         try {
           await Promise.all(promises);
