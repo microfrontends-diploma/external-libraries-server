@@ -3,6 +3,6 @@ import { container } from "tsyringe";
 
 export function registerDI() {
   container.register("ImportMapService", {
-    useValue: new ImportMapService("http://localhost:5000"),
+    useValue: new ImportMapService("http://94.250.250.29:5000"),
   });
 }

@@ -69,7 +69,10 @@ export class ExternalsController {
 
       if (externalsToDelete.length) {
         const promises = externalsToDelete.map((external) =>
-          this.importMapService.deleteImportMap(external, env)
+          this.importMapService.deleteImportMap(
+            encodeURIComponent(external),
+            env
+          )
         );
         try {
           await Promise.all(promises);
@@ -80,6 +83,7 @@ export class ExternalsController {
           );
           res.status(500);
           res.send();
+          return;
         }
       }
 
@@ -100,6 +104,7 @@ export class ExternalsController {
           );
           res.status(500);
           res.send();
+          return;
         }
       }
 
