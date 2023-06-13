@@ -27,12 +27,17 @@ export class ExternalsController {
       const externals = data.externals;
       const env = data.env || "dev";
 
+      console.log("externals", externals);
+
       const externalsToDelete = externals
         .filter(({ action }) => action === "deleted")
         .map(({ lib }) => lib);
       const externalsToAdd = externals.filter(
         ({ action }) => action === "added"
       );
+
+      console.log("externalsToDelete", externalsToDelete);
+      console.log("externalsToAdd", externalsToAdd);
 
       if (fs.existsSync(EXTERNALS_PATH)) {
         /**
@@ -68,12 +73,13 @@ export class ExternalsController {
       }
 
       if (externalsToDelete.length) {
-        const promises = externalsToDelete.map((external) =>
+        const promises = externalsToDelete.map((external) => {
+          console.log("deleting external", `external: ${external}`);
           this.importMapService.deleteImportMap(
             encodeURIComponent(external),
             env
-          )
-        );
+          );
+        });
         try {
           await Promise.all(promises);
         } catch (e) {
@@ -117,7 +123,7 @@ export class ExternalsController {
         .filter(({ action }) => action !== "deleted")
         .map(({ lib }) => lib);
       fs.writeFileSync(
-        path.resolve(EXTERNALS_PATH, `${mfName}.json`),
+        path.resolve(EXTERNALS_PATH, encodeURIComponent(`${mfName}.json`)),
         JSON.stringify(externalsToWrite)
       );
 
